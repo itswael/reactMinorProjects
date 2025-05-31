@@ -53,20 +53,20 @@ export default function AuthInputs() {
     <div id="auth-inputs">
       <Div>
         <p>
-          <Label invalid={emailNotValid}>Email</Label>
+          <Label $invalid={emailNotValid}>Email</Label>
           <Input
             type="email"
             //className={emailNotValid ? 'invalid' : undefined}
-            invalid={emailNotValid}
+            $invalid={emailNotValid}
             onChange={(event) => handleInputChange('email', event.target.value)}
           />
         </p>
         <p>
-          <Label invalid={passwordNotValid}>Password</Label>
+          <Label $invalid={passwordNotValid}>Password</Label>
           <Input
             type="password"
             //className={passwordNotValid ? 'invalid' : undefined}
-            invalid={passwordNotValid}
+            $invalid={passwordNotValid}
             onChange={(event) =>
               handleInputChange('password', event.target.value)
             }
