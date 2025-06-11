@@ -21,8 +21,7 @@ function App() {
             }
             return {
                 ...prevState,
-                selectedProjectId: undefined,
-                task: [newTask, ...prevState.tasks]
+                tasks: [newTask, ...prevState.tasks]
             }
         })
     }
@@ -84,10 +83,11 @@ function App() {
     }
     const selectedProject = projectsState.projects.find(project => project.id === projectsState.selectedProjectId);
 
-    let content = <SelectedProject  onAddTask = {handleAddTask}
+    let content = <SelectedProject onAddTask = {handleAddTask}
+                                    tasks = {projectsState.tasks}
                                     onDeleteTask={handleDeleteTask}
                                     project={selectedProject}
-                                    onDelete={handleDeleteProject}/>;
+                                    onDelete={handleDeleteProject}/>
 
     if (projectsState.selectedProjectId === null) {
         content = <NewProject onAdd={handleAddProject} onCancel={handleCancelAddProject} />
