@@ -7,15 +7,22 @@ import DeleteConfirmation from './components/DeleteConfirmation.jsx';
 import logoImg from './assets/logo.png';
 import {sortPlacesByDistance} from "./loc.js";
 
-const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || []
-const storedPlaces = storedIds.map((id)=>AVAILABLE_PLACES.find((place) => place.id === id))
+let storedIds;
+
+try {
+  const data = JSON.parse(localStorage.getItem("selectedPlaces"));
+  storedIds = Array.isArray(data) ? data : [];
+} catch (e) {
+  storedIds = [];
+}
+const storedPlaces = storedIds.map(id=>AVAILABLE_PLACES.find((place) => place.id === id))
 
 function App() {
   const modal = useRef();
   const selectedPlace = useRef();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [availablePlaces, setAvailablePlaces] = useState([]);
-  const [pickedPlaces, setPickedPlaces] = useState([storedPlaces]);
+  const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -89,7 +96,7 @@ function App() {
         />
         <Places
           title="Available Places"
-          places={AVAILABLE_PLACES}
+          places={availablePlaces}
           fallbackText={"Sorting places by distance..."}
           onSelectPlace={handleSelectPlace}
         />
