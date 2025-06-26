@@ -1,6 +1,9 @@
 export default function Login() {
+    function handleSubmit(event){
+        event.preventDefault();
+    }
   return (
-    <form>
+    <form onClick={handleSubmit}>
       <h2>Login</h2>
 
       <div className="control-row">
