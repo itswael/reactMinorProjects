@@ -1,3 +1,5 @@
+import { isEmail, isNotEmpty, hasMinLength, isEqualToOtherValue } from "../util/validation.js";
+
 export default function Signup() {
     function signupAction(formData) {
         const enteredEmail = formData.email
@@ -9,6 +11,35 @@ export default function Signup() {
         const terms = formData['terms']
         const acquisition = formData.getAll("Acquisition")
 
+        let errors = []
+
+        if(!isEmail(enteredEmail)){
+            errors.push('Please enter a valid email')
+        }
+
+        if(!isNotEmpty(enteredPassword) || !hasMinLength(enteredPassword)){
+            errors.push('Please enter a valid password')
+        }
+
+        if (!isEqualToOtherValue(enteredPassword, confirmPassword)){
+            errors.push('Passwords do not match')
+        }
+
+        if(!isNotEmpty(firstName) || !isNotEmpty(lastName)){
+            errors.push('Please enter a valid first and last name')
+        }
+
+        if(!isNotEmpty(role)){
+            errors.push('Please enter a valid role')
+        }
+
+        if(!terms){
+            errors.push('you must agree to the terms')
+        }
+
+        if(acquisition.length === 0){
+            errors.push('Please select at-least one acquisition')
+        }
     }
   return (
     <form action={signupAction}>
