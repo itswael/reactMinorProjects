@@ -4,6 +4,7 @@ export default function Signup() {
         const form = new FormData(event.target)
         const acquisition = form.getAll("Acquisition")
         const data = Object.fromEntries(form.entries())
+        data.acquisition = acquisition
     }
     return (
         <form onSubmit={handleSubmit}>
